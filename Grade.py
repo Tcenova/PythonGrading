@@ -1,23 +1,37 @@
-__author__ = 'Thomas Cenova'
-
 """
-Grade.py
+File: Grade.py
 
 Author: Thomas Cenova
 
+Description:
+
+
 """
 
-#import shutil
+
 import sys
 import os
 
+"""
+:param path
+
+"""
 def getFolderContents(path):
     return os.listdir(path)
 
+"""
+
+"""
 def runPythonScript(folder, name):
     os.system(os.getcwd() + "/" + folder + "/" + name)
 
+"""
+
+"""
 def main(argv):
+    if len(argv) > 1:
+        print("Usage: Grade.py folderName")
+        return
     path = argv[0]
     #print(getFolderContents(path))
 
@@ -63,7 +77,7 @@ def main(argv):
         fileNumber += 1
 
 
-
+#run main only if run directly
 if __name__ == '__main__':
     main(sys.argv[1:])
 
