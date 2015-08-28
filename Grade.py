@@ -38,6 +38,22 @@ def howToUse():
           "             GOTO fileNumber - goes to that file number  \n"
           "             BACK - goes to last file run                \n")
 
+def findLibPath():
+    for element in sys.path:
+        print(element[-3:])
+        if element[-3:] == "lib":
+            return element
+
+"""
+
+"""
+def runInIDLE(folder, name, libPath):
+    #3 or 4 depending on where you run in
+    print(libPath)
+    command = libPath + "\\idlelib\\idle " + "\"" + os.getcwd() + "\\" + folder + "\\" + name + "\""
+    print(command)
+    os.system(command)
+
 """
 
 """
@@ -47,6 +63,10 @@ def main(argv):
         return
 
     howToUse()
+
+    libPath = findLibPath()
+    print(str(sys.path) + "  HAHA")
+    #system path 4 is what i need!
 
     path = argv[0]
     files = getFolderContents(path)
@@ -85,6 +105,8 @@ def main(argv):
 
 
         print("Running :" + files[fileNumber])
+        runInIDLE(path, files[fileNumber], libPath)
+        input("Press ENTER to run program")
         runPythonScript(path, files[fileNumber])
         fileNumber += 1
 
