@@ -4,6 +4,8 @@ File: Grade.py
 Author: Thomas Cenova
 
 Description:
+Simple script to successively go through each python script in a folder
+Must be run with folder to look in in same directory
 
 
 """
@@ -13,17 +15,19 @@ import sys
 import os
 
 """
-:param path
-
+Function to return a list of folder contents
+:param path string of path to folder
+:return list of strings of the files in the folder
 """
 def getFolderContents(path):
     return os.listdir(path)
 
 """
-
+Function to run a python script from within this script
+NOTE: assumes you can run a python script by calling the file itself
 """
 def runPythonScript(folder, name):
-    command = "python \"" + os.getcwd() + "\\" + folder + "\\" + name + "\""
+    command = "\"" + os.getcwd() + "\\" + folder + "\\" + name + "\""
     os.system(command)
 
 """
