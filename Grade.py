@@ -23,7 +23,16 @@ def getFolderContents(path):
 
 """
 def runPythonScript(folder, name):
-    os.system(os.getcwd() + "/" + folder + "/" + name)
+    command = "python \"" + os.getcwd() + "\\" + folder + "\\" + name + "\""
+    os.system(command)
+
+"""
+"""
+def howToUse():
+    print("Commands are:                                            \n"
+          "             STOP - stops program                        \n"
+          "             GOTO fileNumber - goes to that file number  \n"
+          "             BACK - goes to last file run                \n")
 
 """
 
@@ -32,11 +41,10 @@ def main(argv):
     if len(argv) > 1:
         print("Usage: Grade.py folderName")
         return
-    path = argv[0]
-    #print(getFolderContents(path))
 
-    #print(os.getcwd())
-    #os.system(os.getcwd() + "/" + argv + "/" + getFolderContents(argv)[1])
+    howToUse()
+
+    path = argv[0]
     files = getFolderContents(path)
     fileNumber = 0;
     while (fileNumber<len(files)+1):
@@ -51,7 +59,7 @@ def main(argv):
             #print(cmdList)
             if (fileNumber>len(files)-1):
                 return
-            if cmdList == [] or cmdList[0] == "GO":
+            if cmdList == []:
                 #fileNumber += 1
                 goodCMD = True
             elif cmdList[0] == "GOTO":
