@@ -31,16 +31,17 @@ def runPythonScript(folder, name):
     os.system(command)
 
 """
+Function that prints instructions on usage and commands
 """
 def howToUse():
-    print("Commands are:                                            \n"
-          "             STOP - stops program                        \n"
-          "             GOTO fileNumber - goes to that file number  \n"
-          "             BACK - goes to last file run                \n")
+    print("Commands are:                                                      \n"
+          "             STOP            - stops program                       \n"
+          "             GOTO fileNumber - goes to that file number            \n"
+          "             BACK            - goes to last file run               \n"
+          "             LIST            - lists all files in folder             ")
 
 def findLibPath():
     for element in sys.path:
-        print(element[-3:])
         if element[-3:] == "lib":
             return element
 
@@ -48,10 +49,7 @@ def findLibPath():
 
 """
 def runInIDLE(folder, name, libPath):
-    #3 or 4 depending on where you run in
-    print(libPath)
     command = libPath + "\\idlelib\\idle " + "\"" + os.getcwd() + "\\" + folder + "\\" + name + "\""
-    print(command)
     os.system(command)
 
 """
@@ -65,8 +63,7 @@ def main(argv):
     howToUse()
 
     libPath = findLibPath()
-    print(str(sys.path) + "  HAHA")
-    #system path 4 is what i need!
+    #print(str(sys.path) + "  HAHA")
 
     path = argv[0]
     files = getFolderContents(path)
@@ -75,34 +72,33 @@ def main(argv):
         goodCMD = False
         while (goodCMD == False):
             if fileNumber<len(files):
-                print("Currently at file # : " + str(fileNumber))
+                print("Currently at file: \n" + "#: " + str(fileNumber) + "\tName: " + files[fileNumber])
             else:
                 print("End of files")
             entered = input("Please enter command or hit enter to continue\n>>>")
             cmdList = entered.split()
-            #print(cmdList)
             if (fileNumber>len(files)-1):
                 return
             if cmdList == []:
-                #fileNumber += 1
                 goodCMD = True
             elif cmdList[0] == "GOTO":
                 try:
                     fileNumber = int(cmdList[1])
                     print("Going to " + cmdList[1])
-                    #goodCMD = False
                 except:
                     print ("Usage: GOTO filenumber")
             elif cmdList[0] == "BACK":
                 if fileNumber > 0:
                     fileNumber -= 1
-                    #goodCMD = False
                 else:
                     print("Cannot go back")
             elif cmdList[0] == "STOP":
                 return
-            print(str(fileNumber) + "    " + str(goodCMD))
-
+            elif cmdList[0] == "LIST":
+                print("Folder Contents:"
+                      "#\tFilename")
+                for x in range (0, len(files)-1):
+                    print(str(x) + "\t" + files[x])
 
         print("Running :" + files[fileNumber])
         runInIDLE(path, files[fileNumber], libPath)
@@ -111,7 +107,7 @@ def main(argv):
         fileNumber += 1
 
 
-#run main only if run directly
+#run main only if run file directly
 if __name__ == '__main__':
     main(sys.argv[1:])
 
