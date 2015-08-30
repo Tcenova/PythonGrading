@@ -41,9 +41,12 @@ def howToUse():
           "             LIST            - lists all files in folder             ")
 
 def findLibPath():
-    for element in sys.path:
-        if element[-3:] == "lib":
-            return element
+    if sys.platform == "win32":
+        for element in sys.path:
+            if element[-3:] == "lib":
+                return element
+    else:
+        return "idle3 "
 
 """
 
