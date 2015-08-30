@@ -28,6 +28,8 @@ NOTE: assumes you can run a python script by calling the file itself
 """
 def runPythonScript(folder, name):
     command = "\"" + os.getcwd() + "\\" + folder + "\\" + name + "\""
+    if sys.platform != "win32":
+        command = "python3 " + command
     os.system(command)
 
 """
