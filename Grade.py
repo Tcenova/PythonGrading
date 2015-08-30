@@ -57,7 +57,11 @@ def findLibPath():
 
 """
 def runInIDLE(folder, name, libPath):
-    command = libPath + "\\idlelib\\idle " + "\"" + os.getcwd() + "\\" + folder + "\\" + name + "\""
+    if sys.platform == "win32":
+        command = libPath + "\\idlelib\\idle "
+    else:
+        command = "idle3 "
+    command = command + "\"" + os.getcwd() + "\\" + folder + "\\" + name + "\""
     os.system(command)
 
 """
