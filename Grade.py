@@ -27,9 +27,12 @@ Function to run a python script from within this script
 NOTE: assumes you can run a python script by calling the file itself
 """
 def runPythonScript(folder, name):
-    command = "\"" + os.getcwd() + "\\" + folder + "\\" + name + "\""
+    command = ""
+    slash = "\\"
     if sys.platform != "win32":
-        command = "python3 " + command
+        command = "python3 "
+        slash = "/"
+    command += "\"" + os.getcwd() + slash + folder + slash + name + "\""
     os.system(command)
 
 """
