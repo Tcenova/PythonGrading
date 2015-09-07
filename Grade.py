@@ -69,6 +69,16 @@ def runInIDLE(folder, name, libPath):
 """
 
 """
+def runSequence(path, file):
+    while True:
+        if (input("Enter to run, Anything else to end: ")==""):
+            runPythonScript(path, file)
+        else:
+            return
+
+"""
+
+"""
 def main(argv):
     if len(argv) > 1:
         print("Usage: Grade.py folderName")
@@ -95,29 +105,35 @@ def main(argv):
                 return
             if cmdList == []:
                 goodCMD = True
-            elif cmdList[0] == "GOTO":
-                try:
-                    fileNumber = int(cmdList[1])
-                    print("Going to " + cmdList[1])
-                except:
-                    print ("Usage: GOTO filenumber")
-            elif cmdList[0] == "BACK":
-                if fileNumber > 0:
-                    fileNumber -= 1
-                else:
-                    print("Cannot go back")
-            elif cmdList[0] == "STOP":
-                return
-            elif cmdList[0] == "LIST":
-                print("Folder Contents:"
-                      "#\tFilename")
-                for x in range (0, len(files)-1):
-                    print(str(x) + "\t" + files[x])
+            else:
+                CMD = cmdList[0].upper()
+                if CMD == "GOTO":
+                    try:
+                        fileNumber = int(cmdList[1])
+                        print("Going to " + cmdList[1])
+                    except:
+                        print ("Usage: GOTO filenumber")
+                elif CMD == "BACK":
+                    if fileNumber > 0:
+                        fileNumber -= 1
+                    else:
+                        print("Cannot go back")
+                elif CMD == "STOP":
+                    return
+                elif CMD == "LIST":
+                    print("Folder Contents:"
+                          "#\tFilename")
+                    for x in range (0, len(files)-1):
+                        print(str(x) + "\t" + files[x])
+                elif CMD == "SKIP":
+                    fileNumber += 1
+                elif CMD == "HELP":
+                    howToUse()
 
         print("Running :" + files[fileNumber])
         runInIDLE(path, files[fileNumber], libPath)
         input("Press ENTER to run program")
-        runPythonScript(path, files[fileNumber])
+        runSequence(path, files[fileNumber])
         fileNumber += 1
 
 
