@@ -35,6 +35,15 @@ def runPythonScript(folder, name):
     command += "\"" + os.getcwd() + slash + folder + slash + name + "\""
     os.system(command)
 
+def runWithShellScript(pathToShellScript, folder, nameOfFileToRun):
+    slash = "\\"
+    if sys.platform != "win32":
+        command = "python3 "
+        slash = "/"
+    command = "sh " + pathToShellScript + " "
+    command +=  os.getcwd() + slash + folder + slash + nameOfFileToRun
+    os.system(command)
+
 """
 Function that prints instructions on usage and commands
 """
@@ -64,6 +73,8 @@ def runInIDLE(folder, name, libPath):
         command = "idle3 "
         slash = "/"
     command = command + "\"" + os.getcwd() + slash + folder + slash + name + "\""
+    if sys.platform != "win32":
+        command += " &"
     os.system(command)
 
 """
@@ -91,6 +102,7 @@ def main(argv):
 
     path = argv[0]
     files = getFolderContents(path)
+    files.sort()
     fileNumber = 0;
     while (fileNumber<len(files)+1):
         goodCMD = False
@@ -133,7 +145,8 @@ def main(argv):
         print("Running :" + files[fileNumber])
         runInIDLE(path, files[fileNumber], libPath)
         input("Press ENTER to run program")
-        runSequence(path, files[fileNumber])
+        #runSequence(path, files[fileNumber])
+        runWithShellScript("runTests.sh", path, files[fileNumber])
         fileNumber += 1
 
 
